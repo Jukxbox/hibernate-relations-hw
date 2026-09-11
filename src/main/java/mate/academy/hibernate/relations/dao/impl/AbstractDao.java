@@ -35,16 +35,10 @@ public class AbstractDao<T> {
     }
 
     public Optional<T> get(Long id, Class<T> clazz) {
-        Session session = null;
-        try {
-            session = factory.openSession();
+        try (Session session = factory.openSession()) {
             return Optional.ofNullable(session.find(clazz, id));
         } catch (Exception e) {
             throw new DataProcessingException("Can't get info from DB by id: " + id, e);
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
     }
 }

@@ -26,7 +26,7 @@ public class AbstractDao<T> {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DataProcessingException("Can't add " + entity + " to DB: " + entity, e);
+            throw new DataProcessingException("Can't add to DB: " + entity, e);
         } finally {
             if (session != null) {
                 session.close();
